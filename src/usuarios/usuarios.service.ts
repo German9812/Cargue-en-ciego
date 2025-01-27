@@ -13,6 +13,13 @@ export class UsuariosService {
   ){}
 
   async create(createUsuarioDto: CreateUsuarioDto) {
+    const correoExiste = await this.usuarioRepository.findOne({
+      where: { correoElectronico: createUsuarioDto.correoElectronico },
+    });
+  
+    if (correoExiste) {
+      throw new Error(`El correo ${createUsuarioDto.correoElectronico} ya está registrado.`);
+    }
    const newusuario = await this.usuarioRepository.create(createUsuarioDto);
     return this.usuarioRepository.save(newusuario)
   }

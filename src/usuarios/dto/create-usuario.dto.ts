@@ -1,5 +1,11 @@
-import { IsEmail, IsString } from "class-validator";
-import { Entity } from "typeorm";
+import { IsEmail, IsEnum, IsString } from "class-validator";
+
+
+
+export enum UserRol {
+    ADMINISTRADOR = "Administrador",
+    AUXILIAR = "Auxiliar",
+}
 
 export class CreateUsuarioDto {
 
@@ -7,5 +13,8 @@ export class CreateUsuarioDto {
     correoElectronico: string;
 
     @IsString()
-    rol: string;
+    @IsEnum (UserRol, {
+        message: 'El rol de usuario debe ser: Administrador o Auxiliar',
+    })
+    rol: UserRol;
 }
