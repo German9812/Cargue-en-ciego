@@ -1,5 +1,7 @@
 import { IsEmail, IsEnum, IsString } from "class-validator";
 
+
+
 export enum UserRol {
     ADMINISTRADOR = "Administrador",
     AUXILIAR = "Auxiliar",
