@@ -1,9 +1,10 @@
-// Vehiculo.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 import { Transportador } from 'src/transportador/entities/transportador.entity';
 import { Muelle } from 'src/muelle/entities/muelle.entity';
 import { Carga } from 'src/carga/entities/carga.entity';
 import { EstadoMuelle } from 'src/estado-muelle/entities/estado-muelle.entity';
+import { EstadoVehiculo } from '../dto/create-vehiculo.dto';
+
 
 @Entity('Vehiculo')
 export class Vehiculo {
@@ -13,21 +14,39 @@ export class Vehiculo {
   @Column({ length: 50 })
   Tipo: string;
 
-  @Column({ length: 10, unique: true })
+  @Column({ length: 10})
   Placa: string;
 
-  @Column({ type: 'enum', enum: ['Sin iniciar', 'En verificación', 'Finalizado'] })
-  Estado: string;
+  @Column({ 
+    type: 'enum', 
+    enum: EstadoVehiculo,
+    default: EstadoVehiculo.SIN_VALIDAR
+   })
 
-  @ManyToOne(() => Transportador, (transportador) => transportador.vehiculos)
-  transportador: Transportador;
+  Estado: EstadoVehiculo;
 
-  @OneToMany(() => Muelle, (muelle) => muelle.vehiculo)
-  muelles: Muelle[];
+  @ManyToOne(
+    () => Transportador, 
+    (transportador) => transportador.vehiculos,
+    {nullable: false}
+    ) 
+    transportador: Transportador;
 
-  @OneToMany(() => Carga, (carga) => carga.vehiculo)
-  cargas: Carga[];
+  @OneToMany(
+    () => Muelle, 
+    (muelle) => muelle.vehiculo
+  )
+    muelles: Muelle[];
 
-  @OneToMany(() => EstadoMuelle, (estadoMuelle) => estadoMuelle.vehiculo)
+  @OneToMany(
+    () => Carga, 
+    (carga) => carga.vehiculo
+  )
+    cargas: Carga[];
+
+  @OneToMany(
+    () => EstadoMuelle, 
+    (estadoMuelle) => estadoMuelle.vehiculo
+  )
   estadosMuelle: EstadoMuelle[];
 }
