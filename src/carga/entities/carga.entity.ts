@@ -7,7 +7,7 @@ import { Detalle } from 'src/detalle/entities/detalle.entity';
 @Entity('Carga')
 export class Carga {
   @PrimaryGeneratedColumn()
-  Id_carga: number;
+  id: number;
 
   @Column({ type: 'timestamp', nullable: true })
   Fecha: Date;
