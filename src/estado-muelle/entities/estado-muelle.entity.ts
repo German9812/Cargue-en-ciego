@@ -6,7 +6,7 @@ import { Muelle } from 'src/muelle/entities/muelle.entity';
 @Entity('Estado_muelle')
 export class EstadoMuelle {
   @PrimaryGeneratedColumn()
-  Id_Estado_Muelle: number;
+  Id_estado_Muelle: number;
 
   @Column({ type: 'enum', enum: ['Sin iniciar', 'En verificación', 'Finalizado'] })
   Estado: string;
@@ -17,12 +17,12 @@ export class EstadoMuelle {
   @Column({ type: 'timestamp', nullable: true })
   Hora_fin: Date;
 
-  @ManyToOne(() => Transportador, (transportador) => transportador.estadosMuelle)
+  @ManyToOne(() => Transportador, transportador => transportador.estadosMuelle)
   transportador: Transportador;
 
-  @ManyToOne(() => Vehiculo, (vehiculo) => vehiculo.estadosMuelle)
+  @ManyToOne(() => Vehiculo, vehiculo => vehiculo.estadosMuelle)
   vehiculo: Vehiculo;
 
-  @ManyToOne(() => Muelle, (muelle) => muelle.estadosMuelle)
+  @ManyToOne(() => Muelle, muelle => muelle.estadosMuelle)
   muelle: Muelle;
 }

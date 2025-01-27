@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateVehiculoDto } from './dto/create-vehiculo.dto';
 import { UpdateVehiculoDto } from './dto/update-vehiculo.dto';
 import { Vehiculo } from './entities/vehiculo.entity';
+import { Transportador } from 'src/transportador/entities/transportador.entity';
 
 
 @Injectable()
@@ -37,24 +38,14 @@ export class VehiculoService {
 
   async findAll() {
     return await this.vehiculoRepository.find({
-      relations: {
-        transportador: true,
-        muelles: true,
-        cargas: true,
-        estadosMuelle: true
-      }
+      relations: [ 'transportador', 'muelles', 'cargas', 'estadosMuelle']
     });
   }
 
   async findOne(id: number) {
     const vehiculo = await this.vehiculoRepository.findOne({
       where: { Id_vehiculo: id },
-      relations: {
-        transportador: true,
-        muelles: true,
-        cargas: true,
-        estadosMuelle: true
-      }
+      relations: ['transportador', 'muelles', 'cargas', 'estadosMuelle']
     });
 
     if (!vehiculo) {

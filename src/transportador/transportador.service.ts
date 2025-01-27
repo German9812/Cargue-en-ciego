@@ -1,26 +1,46 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTransportadorDto } from './dto/create-transportador.dto';
 import { UpdateTransportadorDto } from './dto/update-transportador.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Transportador } from './entities/transportador.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TransportadorService {
-  create(createTransportadorDto: CreateTransportadorDto) {
-    return 'This action adds a new transportador';
+constructor(
+    @InjectRepository(Transportador)
+    private readonly transportadorRepository: Repository<Transportador>,
+  ){}
+
+  async create(createTransportadorDto: CreateTransportadorDto) {
+    const newtransportador = this.transportadorRepository.create(createTransportadorDto);
+    return this.transportadorRepository.save(newtransportador) 
   }
 
   findAll() {
-    return `This action returns all transportador`;
+    return this.transportadorRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} transportador`;
-  }
+  async findOne(id: number) {
+    const transportador = await this.transportadorRepository.findOneBy({Id_transportador:id});
+  
 
-  update(id: number, updateTransportadorDto: UpdateTransportadorDto) {
-    return `This action updates a #${id} transportador`;
-  }
+  if (!transportador) {
+    throw new NotFoundException(`Transportador con ID ${id} no encontrado`);
+}
 
-  remove(id: number) {
-    return `This action removes a #${id} transportador`;
+  return transportador;
+}
+
+  async update(id: number, updateTransportadorDto: UpdateTransportadorDto) {
+    await this.transportadorRepository.update({Id_transportador: id}, updateTransportadorDto);
+    return await this.transportadorRepository.findOneBy({ Id_transportador: id });  }
+
+  async remove(id: number) {
+    const transportador = await this.findOne(id);
+    if (!transportador){
+      throw new NotFoundException(`Transportador con ID ${id} no encontrado`);
+    }  
+    return await this.transportadorRepository.remove(transportador);
   }
 }

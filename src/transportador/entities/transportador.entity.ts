@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Vehiculo } from 'src/vehiculo/entities/vehiculo.entity';
+import { EstadoMuelle } from 'src/estado-muelle/entities/estado-muelle.entity';
 
 @Entity('Transportador')
 export class Transportador {
@@ -14,8 +15,11 @@ export class Transportador {
 
   @Column({ length: 12 })
   Telefono: string;
-
-  @OneToMany(() => Vehiculo, (vehiculo) => vehiculo.transportador)
+  
+  @OneToMany(() => Vehiculo, vehiculo => vehiculo.transportador)
   vehiculos: Vehiculo[];
-    estadosMuelle: any;
+
+  // Agregar esta relación
+  @OneToMany(() => EstadoMuelle, estadoMuelle => estadoMuelle.transportador)
+  estadosMuelle: EstadoMuelle[];
 }
