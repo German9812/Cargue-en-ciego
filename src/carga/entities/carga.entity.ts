@@ -9,7 +9,7 @@ export class Carga {
   @PrimaryGeneratedColumn()
   Id_carga: number;
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   Fecha: Date;
 
   @Column({ type: 'enum', enum: ['Sin iniciar', 'En verificación', 'Finalizado'] })

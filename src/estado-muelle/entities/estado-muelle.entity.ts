@@ -11,10 +11,10 @@ export class EstadoMuelle {
   @Column({ type: 'enum', enum: ['Sin iniciar', 'En verificación', 'Finalizado'] })
   Estado: string;
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   Hora_inicio: Date;
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   Hora_fin: Date;
 
   @ManyToOne(() => Transportador, (transportador) => transportador.estadosMuelle)

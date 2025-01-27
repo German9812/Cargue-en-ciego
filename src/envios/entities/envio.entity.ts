@@ -10,7 +10,7 @@ export class Envios {
   @Column({ length: 20 })
   Muelle: string;
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   Fecha_despacho: Date;
 
   @ManyToOne(() => Muelle, (muelle) => muelle.envios)

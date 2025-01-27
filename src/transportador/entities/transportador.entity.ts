@@ -17,4 +17,5 @@ export class Transportador {
 
   @OneToMany(() => Vehiculo, (vehiculo) => vehiculo.transportador)
   vehiculos: Vehiculo[];
+    estadosMuelle: any;
 }

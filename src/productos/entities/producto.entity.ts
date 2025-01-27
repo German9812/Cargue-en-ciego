@@ -1,4 +1,3 @@
-// Producto.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Carga } from 'src/carga/entities/carga.entity';
 
@@ -18,4 +17,5 @@ export class Producto {
 
   @ManyToOne(() => Carga, (carga) => carga.productos)
   carga: Carga;
+    detalles: any;
 }

@@ -7,7 +7,7 @@ export class Despacho {
   @PrimaryGeneratedColumn()
   Id_despacho: number;
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   Fecha: Date;
 
   @ManyToOne(() => Envios, (envios) => envios.despachos)
