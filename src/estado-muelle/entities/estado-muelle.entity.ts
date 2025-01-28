@@ -3,6 +3,12 @@ import { Transportador } from 'src/transportador/entities/transportador.entity';
 import { Vehiculo } from 'src/vehiculo/entities/vehiculo.entity';
 import { Muelle } from 'src/muelle/entities/muelle.entity';
 
+export enum EstadoMuelleEnum {
+  SIN_INICIAR = 'Sin iniciar',
+  EN_VERIFICACION = 'En verificación',
+  FINALIZADO = 'Finalizado'
+}
+
 @Entity('Estado_muelle')
 export class EstadoMuelle {
   @PrimaryGeneratedColumn()
