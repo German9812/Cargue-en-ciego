@@ -1,4 +1,3 @@
-// Despacho.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Envios } from 'src/envios/entities/envio.entity';
 
