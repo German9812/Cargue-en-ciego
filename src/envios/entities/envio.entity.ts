@@ -2,7 +2,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Muelle } from 'src/muelle/entities/muelle.entity';
 
-@Entity('Envios')
+@Entity({ schema: 'dev_practicantes', name: 'Envios' })
 export class Envios {
   @PrimaryGeneratedColumn()
   Id_envio: number;

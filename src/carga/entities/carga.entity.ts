@@ -10,7 +10,7 @@ import { Muelle } from 'src/muelle/entities/muelle.entity';
 import { Producto } from 'src/productos/entities/producto.entity';
 import { Detalle } from 'src/detalle/entities/detalle.entity';
 
-@Entity('Carga')
+@Entity({ schema: 'dev_practicantes', name: 'Carga' })
 export class Carga {
   @PrimaryGeneratedColumn()
   id: number;

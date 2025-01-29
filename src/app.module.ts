@@ -26,6 +26,7 @@ import { Producto } from './productos/entities/producto.entity';
 import { Sitio } from './sitio/entities/sitio.entity';
 import { Transportador } from './transportador/entities/transportador.entity';
 import { Vehiculo } from './vehiculo/entities/vehiculo.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -33,9 +34,9 @@ import { Vehiculo } from './vehiculo/entities/vehiculo.entity';
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
-      schema: 'dev_practicantes',  // <-- Especificar el esquema correcto
+      schema: 'dev_practicantes',  
       autoLoadEntities: true,
-      synchronize: true, // Solo en desarrollo
+      synchronize: true,
       entities: [Carga, Despacho, Detalle, Envios, EstadoMuelle, Muelle, Novedad, Producto, Sitio, Transportador, Usuario, Vehiculo],
       ssl: {
         rejectUnauthorized: false,

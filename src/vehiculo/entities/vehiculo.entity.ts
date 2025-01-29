@@ -6,7 +6,7 @@ import { EstadoMuelle } from 'src/estado-muelle/entities/estado-muelle.entity';
 import { EstadoVehiculo } from '../dto/create-vehiculo.dto';
 
 
-@Entity('Vehiculo')
+@Entity({ schema: 'dev_practicantes', name: 'Vehiculo' })
 export class Vehiculo {
   @PrimaryGeneratedColumn()
   Id_vehiculo: number;

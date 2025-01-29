@@ -5,7 +5,7 @@ import { Envios } from 'src/envios/entities/envio.entity';
 import { EstadoMuelle } from 'src/estado-muelle/entities/estado-muelle.entity';
 import { Carga } from 'src/carga/entities/carga.entity';
 
-@Entity('Muelle')
+@Entity({ schema: 'dev_practicantes', name: 'Muelle' })
 export class Muelle {
   @PrimaryGeneratedColumn()
   Id_muelle: number;

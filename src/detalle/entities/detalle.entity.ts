@@ -4,7 +4,7 @@ import { Producto } from 'src/productos/entities/producto.entity';
 import { Novedad } from 'src/novedad/entities/novedad.entity';
 import { Carga } from 'src/carga/entities/carga.entity';
 
-@Entity('Detalle')
+@Entity({ schema: 'dev_practicantes', name: 'Detalle' })
 export class Detalle {
   @PrimaryGeneratedColumn()
   Id_detalle: number;
