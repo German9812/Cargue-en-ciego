@@ -1,26 +1,46 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSitioDto } from './dto/create-sitio.dto';
 import { UpdateSitioDto } from './dto/update-sitio.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Sitio } from './entities/sitio.entity';
+import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class SitioService {
-  create(createSitioDto: CreateSitioDto) {
-    return 'This action adds a new sitio';
-  }
+  constructor(
+    @InjectRepository(Sitio)
+    private readonly sitioRepository: Repository<Sitio>,
+  ){}
+
+  async create(createSitioDto: CreateSitioDto) {
+    const newsitio = this.sitioRepository.create(createSitioDto);
+    return this.sitioRepository.save(newsitio)
+    } 
+  
 
   findAll() {
-    return `This action returns all sitio`;
+    return this.sitioRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} sitio`;
+  async findOne(id: number) {
+    const sitio = await this.sitioRepository.findOneBy({Id_sitio:id});
+    
+    if (!sitio) {
+      throw new NotFoundException(`Sitio con ID $ {id} no encontrado`);
+    }
+      return sitio;
   }
 
-  update(id: number, updateSitioDto: UpdateSitioDto) {
-    return `This action updates a #${id} sitio`;
-  }
+  async update(id: number, updateSitioDto: UpdateSitioDto) {
+    await this.sitioRepository.update({Id_sitio: id}, updateSitioDto);
+    return await this.sitioRepository.findOneBy({ Id_sitio: id });
+}
 
-  remove(id: number) {
-    return `This action removes a #${id} sitio`;
-  }
+  async remove(id: number) {
+    const sitio = await this.findOne(id);
+    if (!sitio){
+      throw new NotFoundException(`Sitio con ID ${id} no encontrado`);
+    }
+    return await this.sitioRepository.remove(sitio); }
 }
