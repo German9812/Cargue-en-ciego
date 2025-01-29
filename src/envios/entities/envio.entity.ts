@@ -1,4 +1,3 @@
-// Envios.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Muelle } from 'src/muelle/entities/muelle.entity';
 
