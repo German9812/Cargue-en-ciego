@@ -19,8 +19,8 @@ export class ProductosService {
         Nombre: createProductoDto.Nombre,
         Descripcion: createProductoDto.Descripcion,
         carga:  {
-          Id_carga: createProductoDto.Carga_id
-        }
+          Id_carga: createProductoDto.Carga_id,
+        },
       };
       console.log('Data a guardar:', productoData);
 
