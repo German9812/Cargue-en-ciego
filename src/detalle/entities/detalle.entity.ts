@@ -1,4 +1,3 @@
-// Detalle.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Producto } from 'src/productos/entities/producto.entity';
 import { Novedad } from 'src/novedad/entities/novedad.entity';
