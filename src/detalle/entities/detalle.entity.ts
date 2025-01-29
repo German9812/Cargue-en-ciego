@@ -7,7 +7,7 @@ import { Carga } from 'src/carga/entities/carga.entity';
 @Entity({ schema: 'dev_practicantes', name: 'Detalle' })
 export class Detalle {
   @PrimaryGeneratedColumn()
-  Id_detalle: number;
+  id: number;
 
   @Column({ length: 10 })
   Cantidad_registrada: string;
