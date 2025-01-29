@@ -61,5 +61,7 @@ export class CargaService {
   async remove(id: number) {
     const carga = await this.findOne(id);
     return this.cargaRepository.remove(carga);
+
+    
   }
 }

@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { Vehiculo } from 'src/vehiculo/entities/vehiculo.entity';
 import { Muelle } from 'src/muelle/entities/muelle.entity';
 import { Producto } from 'src/productos/entities/producto.entity';
@@ -12,7 +18,10 @@ export class Carga {
   @Column({ type: 'timestamp', nullable: true })
   Fecha: Date;
 
-  @Column({ type: 'enum', enum: ['Sin iniciar', 'En verificación', 'Finalizado'] })
+  @Column({
+    type: 'enum',
+    enum: ['Sin iniciar', 'En verificación', 'Finalizado'],
+  })
   Estado: string;
 
   @ManyToOne(() => Vehiculo, (vehiculo) => vehiculo.cargas)
