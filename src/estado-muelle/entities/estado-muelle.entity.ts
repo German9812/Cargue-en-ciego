@@ -9,7 +9,7 @@ export enum EstadoMuelleEnum {
   FINALIZADO = 'Finalizado'
 }
 
-@Entity('Estado_muelle')
+@Entity({ schema: 'dev_practicantes', name: 'EstadoMuelle' })
 export class EstadoMuelle {
   @PrimaryGeneratedColumn()
   Id_estado_Muelle: number;

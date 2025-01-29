@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Vehiculo } from 'src/vehiculo/entities/vehiculo.entity';
 import { EstadoMuelle } from 'src/estado-muelle/entities/estado-muelle.entity';
 
-@Entity('Transportador')
+@Entity({ schema: 'dev_practicantes', name: 'Transportador' })
 export class Transportador {
   @PrimaryGeneratedColumn()
   Id_transportador: number;

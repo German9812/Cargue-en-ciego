@@ -1,8 +1,7 @@
-// Despacho.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Envios } from 'src/envios/entities/envio.entity';
 
-@Entity('Despacho')
+@Entity({ schema: 'dev_practicantes', name: 'Despacho' })
 export class Despacho {
   @PrimaryGeneratedColumn()
   Id_despacho: number;

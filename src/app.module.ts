@@ -26,19 +26,22 @@ import { Producto } from './productos/entities/producto.entity';
 import { Sitio } from './sitio/entities/sitio.entity';
 import { Transportador } from './transportador/entities/transportador.entity';
 import { Vehiculo } from './vehiculo/entities/vehiculo.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forRoot ({
-    type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: '0000',
-    database: 'prueba',
-    autoLoadEntities: true,
-    synchronize: true,
-    entities: [Carga, Despacho, Detalle, Envios, EstadoMuelle, Muelle, Novedad, Producto, Sitio, Transportador, Usuario, Vehiculo],
-  }),
+  imports: [
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
+      schema: 'dev_practicantes',  
+      autoLoadEntities: true,
+      synchronize: true,
+      entities: [Carga, Despacho, Detalle, Envios, EstadoMuelle, Muelle, Novedad, Producto, Sitio, Transportador, Usuario, Vehiculo],
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    }),
   UsuariosModule, DetalleModule, ProductosModule, NovedadModule, CargaModule, DespachoModule, EnviosModule, 
   MuelleModule, EstadoMuelleModule, VehiculoModule, SitioModule, TransportadorModule],
   
