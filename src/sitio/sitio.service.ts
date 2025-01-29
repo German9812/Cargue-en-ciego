@@ -5,7 +5,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Sitio } from './entities/sitio.entity';
 import { Repository } from 'typeorm';
 
-
 @Injectable()
 export class SitioService {
   constructor(
@@ -18,7 +17,6 @@ export class SitioService {
     return this.sitioRepository.save(newsitio)
     } 
   
-
   findAll() {
     return this.sitioRepository.find();
   }
