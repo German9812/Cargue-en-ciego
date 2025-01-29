@@ -1,26 +1,45 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateNovedadDto } from './dto/create-novedad.dto';
 import { UpdateNovedadDto } from './dto/update-novedad.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Novedad } from './entities/novedad.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class NovedadService {
-  create(createNovedadDto: CreateNovedadDto) {
+  constructor(
+    @InjectRepository(Novedad)
+    private readonly novedadRepository: Repository<Novedad>,
+  ){}
+  
+  async create(createNovedadDto: CreateNovedadDto) {
+    const newnovedad = this.novedadRepository.create(createNovedadDto)
     return 'This action adds a new novedad';
   }
 
   findAll() {
-    return `This action returns all novedad`;
+    return this.novedadRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} novedad`;
+  async findOne(id: number) {
+    const novedad = await this.novedadRepository.findOneBy({Id_novedad:id});
+    
+    if (!novedad){
+      throw new NotFoundException(`Novedad con ID $ {id} no encontrado `);
+    }
+    return novedad;
   }
 
-  update(id: number, updateNovedadDto: UpdateNovedadDto) {
-    return `This action updates a #${id} novedad`;
+  async update(id: number, updateNovedadDto: UpdateNovedadDto) {
+    await this.novedadRepository.update({Id_novedad: id}, updateNovedadDto);
+    return await this.novedadRepository.findOneBy({Id_novedad: id});
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} novedad`;
+  async remove(id: number) {
+    const novedad = await this.findOne(id);
+    if (!novedad){
+      throw new NotFoundException(`Novedad con ID ${id} no encontrada`);
+    }
+    return await this.novedadRepository.remove(novedad);
   }
 }

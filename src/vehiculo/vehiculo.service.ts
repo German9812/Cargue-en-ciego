@@ -6,7 +6,6 @@ import { UpdateVehiculoDto } from './dto/update-vehiculo.dto';
 import { Vehiculo } from './entities/vehiculo.entity';
 import { Transportador } from 'src/transportador/entities/transportador.entity';
 
-
 @Injectable()
 export class VehiculoService {
   constructor(
