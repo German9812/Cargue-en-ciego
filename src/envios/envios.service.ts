@@ -9,29 +9,29 @@ import { Repository } from 'typeorm';
 export class EnviosService {
   constructor(
     @InjectRepository(Envios)
-    private readonly envioRepository: Repository<Envios>,
+    private readonly enviosRepository: Repository<Envios>,
   ){}
 
   create(createEnvioDto: CreateEnvioDto): Promise<Envios> {
     const { muelleId, Fecha_despacho, ...rest } = createEnvioDto;
 
-    const envio = this.envioRepository.create({
+    const envio = this.enviosRepository.create({
       ...rest,
       Fecha_despacho: Fecha_despacho || new Date(),
     });
 
     if (muelleId) envio.muelle = { Id_muelle: muelleId } as any;
-    return this.envioRepository.save(envio);
+    return this.enviosRepository.save(envio);
   }
 
   findAll(): Promise<Envios[]> {
-    return this.envioRepository.find({
+    return this.enviosRepository.find({
       relations: ['muelle', 'despachos'],
     })
   }
 
   async findOne(id: number): Promise<Envios> {
-    const envio = await this.envioRepository.findOne({
+    const envio = await this.enviosRepository.findOne({
       where: { Id_envio: id },
       relations: ['muelle', 'despachos'],
     });
@@ -49,11 +49,11 @@ export class EnviosService {
 
     Object.assign(envio, rest);
 
-    return this.envioRepository.save(envio);
+    return this.enviosRepository.save(envio);
   }
 
   async remove(id: number): Promise<void> {
-    const envio = await this.envioRepository.delete(id);
+    const envio = await this.enviosRepository.delete(id);
     if (envio.affected === 0) {
       throw new NotFoundException(`Envio con ID ${id} no encontrado`);
     }

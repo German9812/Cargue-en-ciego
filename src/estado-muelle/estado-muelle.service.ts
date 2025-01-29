@@ -9,31 +9,31 @@ import { Repository } from 'typeorm';
 export class EstadoMuelleService {
   constructor(
     @InjectRepository(EstadoMuelle)
-    private readonly estadoMuelleRepository: Repository<EstadoMuelle>,
+    private readonly EstadoMuelleRepository: Repository<EstadoMuelle>,
   ) {}
 
 async create(createEstadoMuelleDto: CreateEstadoMuelleDto) {
   const { vehiculoId, muelleId, ...rest } = createEstadoMuelleDto;
 
-  const estadoMuelle = this.estadoMuelleRepository.create({
+  const estadoMuelle = this.EstadoMuelleRepository.create({
     ...rest,
   });
 
   if (vehiculoId) estadoMuelle.vehiculo = { Id_vehiculo: vehiculoId } as any;
   if (muelleId) estadoMuelle.muelle = { Id_muelle: muelleId } as any;
 
-  return this.estadoMuelleRepository.save(estadoMuelle);
+  return this.EstadoMuelleRepository.save(estadoMuelle);
 }
 
 
   async findAll(): Promise<EstadoMuelle[]> {
-    return await this.estadoMuelleRepository.find({
+    return await this.EstadoMuelleRepository.find({
       relations: ['vehiculo', 'muelle'],
     });
   }
 
   async findOne(id: number): Promise<EstadoMuelle> {
-    const estadoMuelle = await this.estadoMuelleRepository.findOne({
+    const estadoMuelle = await this.EstadoMuelleRepository.findOne({
       where: { Id_estado_Muelle: id },
       relations: ['vehiculo', 'muelle'],
     });
@@ -52,11 +52,11 @@ async create(createEstadoMuelleDto: CreateEstadoMuelleDto) {
 
     Object.assign(estadoMuelle, rest);
 
-    return this.estadoMuelleRepository.save(estadoMuelle);
+    return this.EstadoMuelleRepository.save(estadoMuelle);
   }
 
   async remove(id: number): Promise<void> {
-    const estadoMuelle = await this.estadoMuelleRepository.delete(id);
+    const estadoMuelle = await this.EstadoMuelleRepository.delete(id);
     if (estadoMuelle.affected === 0) {
       throw new NotFoundException(`EstadoMuelle con ID ${id} no encontrado`);
     }
