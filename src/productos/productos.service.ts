@@ -4,6 +4,7 @@ import { UpdateProductoDto } from './dto/update-producto.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Producto } from './entities/producto.entity';
 import { Repository } from 'typeorm';
+import { Carga } from 'src/carga/entities/carga.entity';
 
 @Injectable()
 export class ProductosService {
@@ -18,13 +19,13 @@ export class ProductosService {
         Cova: createProductoDto.Cova,
         Nombre: createProductoDto.Nombre,
         Descripcion: createProductoDto.Descripcion,
-        carga:  {
-          Id_carga: createProductoDto.Carga_id,
-        },
+        carga: {
+          id: createProductoDto.Carga_id // Asegúrate de que esto coincida con el nombre de propiedad esperado en la entidad Carga
+        }
       };
       console.log('Data a guardar:', productoData);
 
-      const producto = this.productoRepository.create();
+      const producto = this.productoRepository.create(productoData);
       return await this.productoRepository.save(producto);
     } catch (error) {
       if (error.code === '23505'){
@@ -32,7 +33,7 @@ export class ProductosService {
       }
       throw error;
     }
-  }
+  }z
   
 
   async findAll() {
