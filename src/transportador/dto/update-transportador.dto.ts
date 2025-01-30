@@ -4,4 +4,12 @@ import { IsString } from 'class-validator';
 
 export class UpdateTransportadorDto extends PartialType(CreateTransportadorDto) {
 
+    @IsString()
+    Identificacion: string;
+
+    @IsString()
+    Nombre: string;
+
+    @IsString()
+    Telefono: string;
 }   
